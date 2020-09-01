@@ -19,16 +19,10 @@
     "files": [
         "lib"
     ],
-    "bin": {
-        "nlib-changelog": "lib/cli.js"
-    },
     "scripts": {
         "build": "tsc",
         "test": "ava",
         "lint": "eslint --ext .ts --ext .js src",
-        "version:changelog": "ts-node src/cli.ts",
-        "version:add": "git add .",
-        "version": "run-s version:changelog version:add",
         "prepack": "rimraf 'lib/**/*.test.*'"
     },
     "dependencies": {
@@ -77,27 +71,10 @@
         "overrides": [
             {
                 "files": [
-                    "src/cli.ts"
+                    "src/formatter.ts"
                 ],
                 "rules": {
-                    "no-console": "off",
-                    "@nlib/restrict-globals": [
-                        "error",
-                        {
-                            "allowed": [
-                                "__dirname",
-                                "module"
-                            ]
-                        }
-                    ]
-                }
-            },
-            {
-                "files": [
-                    "*.test.ts"
-                ],
-                "rules": {
-                    "max-lines-per-function": "off"
+                    "new-cap": "off"
                 }
             }
         ]
