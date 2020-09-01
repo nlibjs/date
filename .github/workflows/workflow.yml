@@ -36,6 +36,8 @@ jobs:
       - run: npm run build
   Test:
     runs-on: ${{ matrix.os }}
+    env:
+      TZ: Asia/Tokyo
     needs:
       - Setup
     strategy:
