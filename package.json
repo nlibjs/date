@@ -27,7 +27,7 @@
     },
     "dependencies": {
         "@nlib/global": "^3.17.10",
-        "@nlib/typing": "0.0.3"
+        "@nlib/typing": "0.0.4"
     },
     "devDependencies": {
         "@commitlint/cli": "^9.1.2",
