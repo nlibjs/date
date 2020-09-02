@@ -1,96 +1,64 @@
-import {isString} from '@nlib/typing';
 import {getTimeZoneOffset} from './timezone';
-import {defineReadOnlyProperties} from '@nlib/global';
-
-export interface DateFormatter {
-    readonly fragments?: ReadonlyArray<string | DateFormatter>,
-    (date: Date): string,
-}
-
-export const normalizeFragments = (
-    fragments: Array<string | DateFormatter>,
-): Array<string | DateFormatter> => {
-    const result: Array<string | DateFormatter> = [];
-    for (const fragment of fragments) {
-        if (isString(fragment)) {
-            result.push(fragment);
-        } else if (fragment.fragments) {
-            result.push(...fragment.fragments);
-        } else {
-            result.push(fragment);
-        }
-    }
-    return result;
-};
-
-export const createDateFormatter = (
-    ...args: Array<string | DateFormatter>
-): DateFormatter => {
-    const fragments = normalizeFragments(args);
-    return defineReadOnlyProperties(
-        (date: Date) => fragments
-        .map((fragment) => isString(fragment) ? fragment : fragment(date))
-        .join(''),
-        {fragments},
-    );
-};
+import {DateFormatter, createDateFormatter} from './createDateFormatter';
+import {MonthName, DayName} from './constants';
 
 const pad2 = (input: number | string) => `${input}`.padStart(2, '0');
 
-export const Y: DateFormatter = (date) => `${date.getFullYear()}`;
-export const YYYY: DateFormatter = (date) => Y(date).padStart(4, '0');
-export const YY: DateFormatter = (date) => YYYY(date).slice(-2);
-export const M: DateFormatter = (date) => `${date.getMonth() + 1}`;
-export const MM: DateFormatter = (date) => pad2(M(date));
-export const MonthName = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-];
-export const MMMM: DateFormatter = (date) => MonthName[date.getMonth()];
-export const MMM: DateFormatter = (date) => MMMM(date).slice(0, 3);
-export const D: DateFormatter = (date) => `${date.getDate()}`;
-export const DD: DateFormatter = (date) => pad2(D(date));
-export const DayName = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-];
-export const dddd: DateFormatter = (date) => DayName[date.getDay()];
-export const ddd: DateFormatter = (date) => dddd(date).slice(0, 3);
-export const ISO8601DATE = createDateFormatter(YYYY, '-', MM, '-', DD);
+export const lY: DateFormatter = (date) => `${date.getFullYear()}`;
+export const lYYYY: DateFormatter = (date) => lY(date).padStart(4, '0');
+export const lYY: DateFormatter = (date) => lYYYY(date).slice(-2);
+export const lM: DateFormatter = (date) => `${date.getMonth() + 1}`;
+export const lMM: DateFormatter = (date) => pad2(lM(date));
+export const lMMMM: DateFormatter = (date) => MonthName[date.getMonth()];
+export const lMMM: DateFormatter = (date) => lMMMM(date).slice(0, 3);
+export const lD: DateFormatter = (date) => `${date.getDate()}`;
+export const lDD: DateFormatter = (date) => pad2(lD(date));
+export const ldddd: DateFormatter = (date) => DayName[date.getDay()];
+export const lddd: DateFormatter = (date) => ldddd(date).slice(0, 3);
+export const lISO8601DATE = createDateFormatter(lYYYY, '-', lMM, '-', lDD);
 
-export const h: DateFormatter = (date) => `${date.getHours()}`;
-export const hh: DateFormatter = (date) => pad2(h(date));
-export const m: DateFormatter = (date) => `${date.getMinutes()}`;
-export const mm: DateFormatter = (date) => pad2(m(date));
-export const s: DateFormatter = (date) => `${date.getSeconds()}`;
-export const ss: DateFormatter = (date) => pad2(s(date));
-export const ISO8601TIME = createDateFormatter(hh, ':', mm, ':', ss);
-export const Z: DateFormatter = (date) => {
+export const uY: DateFormatter = (date) => `${date.getUTCFullYear()}`;
+export const uYYYY: DateFormatter = (date) => uY(date).padStart(4, '0');
+export const uYY: DateFormatter = (date) => uYYYY(date).slice(-2);
+export const uM: DateFormatter = (date) => `${date.getUTCMonth() + 1}`;
+export const uMM: DateFormatter = (date) => pad2(uM(date));
+export const uMMMM: DateFormatter = (date) => MonthName[date.getUTCMonth()];
+export const uMMM: DateFormatter = (date) => uMMMM(date).slice(0, 3);
+export const uD: DateFormatter = (date) => `${date.getUTCDate()}`;
+export const uDD: DateFormatter = (date) => pad2(uD(date));
+export const udddd: DateFormatter = (date) => DayName[date.getUTCDay()];
+export const uddd: DateFormatter = (date) => udddd(date).slice(0, 3);
+export const uISO8601DATE = createDateFormatter(uYYYY, '-', uMM, '-', uDD);
+
+export const lh: DateFormatter = (date) => `${date.getHours()}`;
+export const lhh: DateFormatter = (date) => pad2(lh(date));
+export const lm: DateFormatter = (date) => `${date.getMinutes()}`;
+export const lmm: DateFormatter = (date) => pad2(lm(date));
+export const ls: DateFormatter = (date) => `${date.getSeconds()}`;
+export const lss: DateFormatter = (date) => pad2(ls(date));
+export const lms: DateFormatter = (date) => `${date.getMilliseconds()}`.padStart(3, '0');
+export const lISO8601TIME = createDateFormatter(lhh, ':', lmm, ':', lss, '.', lms);
+
+export const uh: DateFormatter = (date) => `${date.getUTCHours()}`;
+export const uhh: DateFormatter = (date) => pad2(uh(date));
+export const um: DateFormatter = (date) => `${date.getUTCMinutes()}`;
+export const umm: DateFormatter = (date) => pad2(um(date));
+export const us: DateFormatter = (date) => `${date.getUTCSeconds()}`;
+export const uss: DateFormatter = (date) => pad2(us(date));
+export const ums: DateFormatter = (date) => `${date.getUTCMilliseconds()}`.padStart(3, '0');
+export const uISO8601TIME = createDateFormatter(uhh, ':', umm, ':', uss, '.', ums);
+
+export const lZ: DateFormatter = (date) => {
     const tz = getTimeZoneOffset(date);
     return `${tz.sign}${tz.hour}:${pad2(tz.minute)}`;
 };
-export const ZZ: DateFormatter = (date) => {
+export const lZZ: DateFormatter = (date) => {
     const tz = getTimeZoneOffset(date);
     return `${tz.sign}${pad2(tz.hour)}:${pad2(tz.minute)}`;
 };
-export const ZZZ: DateFormatter = (date) => {
+export const lZZZ: DateFormatter = (date) => {
     const tz = getTimeZoneOffset(date);
     return `${tz.sign}${pad2(tz.hour)}${pad2(tz.minute)}`;
 };
-
-export const ISO8601: DateFormatter = createDateFormatter(ISO8601DATE, 'T', ISO8601TIME, ZZZ);
+export const lISO8601: DateFormatter = createDateFormatter(lISO8601DATE, 'T', lISO8601TIME, lZZZ);
+export const uISO8601: DateFormatter = createDateFormatter(uISO8601DATE, 'T', uISO8601TIME, 'Z');

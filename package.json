@@ -21,7 +21,7 @@
     ],
     "scripts": {
         "build": "tsc",
-        "test": "ava",
+        "test": "env TZ=Asia/Tokyo ava",
         "lint": "eslint --ext .ts --ext .js src",
         "prepack": "rimraf 'lib/**/*.test.*'"
     },
@@ -67,17 +67,7 @@
         },
         "rules": {
             "@nlib/restrict-globals": "error"
-        },
-        "overrides": [
-            {
-                "files": [
-                    "src/formatter.ts"
-                ],
-                "rules": {
-                    "new-cap": "off"
-                }
-            }
-        ]
+        }
     },
     "commitlint": {
         "extends": [
