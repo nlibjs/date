@@ -41,8 +41,8 @@
         "test": "run-s build test:*",
         "test-skipbuild": "run-s test:*",
         "test:type": "tsc --noEmit",
-        "test:cjs": "ava './cjs/**/*.test.cjs'",
-        "test:esm": "ava './esm/**/*.test.mjs'",
+        "test:cjs": "env TZ=Asia/Tokyo ava './cjs/**/*.test.cjs'",
+        "test:esm": "env TZ=Asia/Tokyo ava './esm/**/*.test.mjs'",
         "lint": "eslint --ext .ts src"
     },
     "dependencies": {
