@@ -49,8 +49,7 @@
         "version:add": "git add ."
     },
     "dependencies": {
-        "@nlib/global": "^3.17.15",
-        "@nlib/typing": "^0.1.4"
+        "@nlib/global": "^3.17.15"
     },
     "devDependencies": {
         "@commitlint/cli": "^9.1.2",

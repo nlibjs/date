@@ -1,5 +1,8 @@
-import {isString} from '@nlib/typing';
 import {defineReadOnlyProperties} from '@nlib/global';
+
+const isString = (
+    input: string | DateFormatter,
+): input is string => typeof input === 'string';
 
 export interface DateFormatter {
     readonly fragments?: ReadonlyArray<string | DateFormatter>,
