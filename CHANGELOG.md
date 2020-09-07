@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.4 (2020-09-07)
+
+### Code Refactoring
+
+- remove @nlib/typing (95bf354)
+
+
 ## v0.1.0 (2020-09-07)
 
 ### Features
