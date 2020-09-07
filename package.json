@@ -46,17 +46,6 @@
         "rimraf": "^3.0.2",
         "typescript": "^4.0.2"
     },
-    "ava": {
-        "extensions": [
-            "ts"
-        ],
-        "require": [
-            "ts-node/register"
-        ],
-        "files": [
-            "!**/*.module.ts"
-        ]
-    },
     "eslintConfig": {
         "extends": [
             "@nlib/eslint-config"
