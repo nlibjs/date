@@ -1,6 +1,13 @@
 # Changelog
 
-## v0.1.4 (2020-09-07)
+## v0.1.2 (2020-10-03)
+
+### Dependency Upgrades
+
+- setup nlib-lint-commit (2a33352)
+
+
+## v0.1.1 (2020-09-07)
 
 ### Code Refactoring
 
